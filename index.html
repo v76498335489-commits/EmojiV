@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<title>😂 Emoji Copy Karo — 100,000 Naye Funny Emoji 📋</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #fdfbfb, #ebedee);
+    color: #222;
+    text-align: center;
+  }
+  header {
+    padding: 18px 12px 10px;
+    background: linear-gradient(90deg,#ff6b6b,#ffa751);
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  }
+  h1 { margin: 0 0 4px; font-size: clamp(1rem, 4vw, 1.4rem); }
+  p.sub { margin: 0 0 10px; font-size: 0.8rem; opacity: 0.95; }
+  #tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .tab-btn {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 6px 11px;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .tab-btn.active { background: white; color: #ff6b4a; }
+  #search {
+    width: 90%;
+    max-width: 420px;
+    padding: 9px 16px;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.95rem;
+    outline: none;
+  }
+  #cats {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 8px;
+  }
+  .cat-btn {
+    background: rgba(255,255,255,0.25);
+    border: 1px solid rgba(255,255,255,0.5);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .cat-btn.active { background: white; color: #ff6b4a; font-weight: bold; }
+  #stats-bar {
+    max-width: 520px;
+    margin: 10px auto 0;
+    background: rgba(255,255,255,0.2);
+    border-radius: 14px;
+    padding: 8px 14px;
+    font-size: 0.82rem;
+  }
+  main { padding-bottom: 60px; }
+  #grid, #combo-grid, #funny100k-grid, #comments100k-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 6px;
+    padding: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  #combo-grid, #funny100k-grid { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); }
+  #comments100k-grid { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+  .emoji-btn {
+    font-size: 1.6rem;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 8px 2px;
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.12s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .emoji-btn:hover { transform: scale(1.15); box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #fff8f0; }
+  .emoji-btn:active { transform: scale(0.9); }
+  .mini-comment-btn {
+    font-size: 1.05rem;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 6px 4px;
+    cursor: pointer;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+  .mini-comment-btn:hover { background: #fff8f0; }
+  .mini-comment-btn:active { transform: scale(0.94); }
+  #combo-controls, #funny100k-controls, #comment-controls, #comments100k-controls, #name-controls { margin: 14px 0 4px; }
+  button.action {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 9px 16px;
+    margin: 4px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(90deg,#ff6b6b,#ffa751);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 3px 10px rgba(255,107,107,0.4);
+  }
+  button.action:hover { transform: scale(1.05); }
+  select#comboLen {
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    font-size: 0.9rem;
+  }
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #222;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 100;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #empty { padding: 30px; opacity: 0.6; display: none; }
+  .hidden { display: none !important; }
+  #f100k-progress-wrap, #c100k-progress-wrap {
+    max-width: 420px;
+    margin: 8px auto;
+    background: rgba(255,255,255,0.2);
+    border-radius: 999px;
+    height: 18px;
+    overflow: hidden;
+  }
+  #f100k-progress, #c100k-progress {
+    height: 100%;
+    width: 0%;
+    background: white;
+    transition: width 0.2s;
+  }
+  #comment-feed {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 6px 14px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .comment-card {
+    background: white;
+    border-radius: 14px;
+    padding: 10px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    text-align: left;
+  }
+  .comment-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .comment-num {
+    font-size: 0.75rem;
+    opacity: 0.55;
+    font-weight: bold;
+  }
+  .comment-copy-btn {
+    font-size: 0.75rem;
+    padding: 4px 10px;
+    border: none;
+    border-radius: 999px;
+    background: #ff6b4a;
+    color: white;
+    cursor: pointer;
+  }
+  .comment-copy-btn:active { transform: scale(0.94); }
+  pre.comment-body {
+    font-size: 1.15rem;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    font-family: 'Segoe UI Emoji', sans-serif;
+  }
+  .comment-count {
+    font-size: 0.7rem;
+    opacity: 0.5;
+    margin-top: 4px;
+    text-align: right;
+  }
+  #name-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 10px 16px 40px;
+  }
+  #nameInput {
+    width: 90%;
+    max-width: 380px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 2px solid #ffa751;
+    font-size: 1rem;
+    outline: none;
+    text-align: center;
+  }
+  .preset-group {
+    margin: 12px 0 4px;
+  }
+  .preset-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+  .preset-btn {
+    background: #fff0e8;
+    border: 1px solid #ffd7b8;
+    color: #b3401f;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin: 3px;
+    cursor: pointer;
+  }
+  .preset-btn:hover { background: #ffe2cc; }
+  #name-result-card {
+    background: white;
+    border-radius: 16px;
+    padding: 18px 14px;
+    margin-top: 18px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    display: none;
+  }
+  #name-result-text {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    word-break: break-word;
+    margin-bottom: 12px;
+  }
+  #block-result-card {
+    background: white;
+    border-radius: 16px;
+    padding: 14px 10px;
+    margin-top: 14px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    display: none;
+    overflow-x: auto;
+  }
+  pre.block-art-pre {
+    font-size: 0.85rem;
+    line-height: 1.05;
+    letter-spacing: 0;
+    white-space: pre;
+    text-align: left;
+    margin: 0 0 12px;
+    font-family: 'Segoe UI Emoji', monospace;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>😂 Emoji Copy Karo 📋</h1>
+  <p class="sub">Click karo → copy ho jayega → kahin bhi paste karo!</p>
+  <div id="tabs">
+    <button class="tab-btn active" data-tab="single">🙂 Single Emoji</button>
+    <button class="tab-btn" data-tab="combo">🎲 Combo Mode</button>
+    <button class="tab-btn" data-tab="funny100k">🆕 100k Naye Funny Emoji</button>
+    <button class="tab-btn" data-tab="comment">💬 Funny Emoji Comments</button>
+    <button class="tab-btn" data-tab="comments100k">🔥 100k Funny Comments</button>
+    <button class="tab-btn" data-tab="name">✍️ Naam Emoji Banao</button>
+  </div>
+
+  <div id="single-controls">
+    <input id="search" type="text" placeholder="🔍 Emoji dhundo... (e.g. 'hasi', 'laugh', 'dog')">
+    <div id="cats">
+      <button class="cat-btn active" data-cat="all">Sab</button>
+      <button class="cat-btn" data-cat="funny">😂 Funny</button>
+      <button class="cat-btn" data-cat="love">❤️ Love</button>
+      <button class="cat-btn" data-cat="animals">🐶 Animals</button>
+      <button class="cat-btn" data-cat="food">🍕 Food</button>
+      <button class="cat-btn" data-cat="gestures">👍 Gestures</button>
+      <button class="cat-btn" data-cat="party">🎉 Party</button>
+      <button class="cat-btn" data-cat="faces">🙃 Faces</button>
+      <button class="cat-btn" data-cat="nature">🌿 Nature</button>
+      <button class="cat-btn" data-cat="objects">💡 Objects</button>
+      <button class="cat-btn" data-cat="symbols">✨ Symbols</button>
+    </div>
+  </div>
+
+  <div id="combo-controls-header" class="hidden">
+    <div id="stats-bar"></div>
+  </div>
+
+  <div id="funny100k-header" class="hidden">
+    <div id="f100k-progress-wrap"><div id="f100k-progress"></div></div>
+    <div id="stats-bar-f100k" style="font-size:0.85rem; opacity:0.95;"></div>
+  </div>
+
+  <div id="comment-header" class="hidden">
+    <p style="font-size:0.82rem; opacity:0.95; margin:0;">Sirf emoji se bane funny comments — koi text nahi, sab copy-paste ready 👇</p>
+  </div>
+
+  <div id="comments100k-header" class="hidden">
+    <div id="c100k-progress-wrap"><div id="c100k-progress"></div></div>
+    <div id="stats-bar-c100k" style="font-size:0.85rem; opacity:0.95;"></div>
+  </div>
+
+  <div id="name-header" class="hidden">
+    <p style="font-size:0.82rem; opacity:0.95; margin:0;">Apna naam likho ya niche se ek naam choose karo — funny emoji mein ban jayega 👇</p>
+  </div>
+</header>
+
+<main>
+  <div id="single-view">
+    <div id="grid"></div>
+    <div id="empty">😕 Kuch nahi mila, dusra keyword try karo</div>
+  </div>
+
+  <div id="combo-view" class="hidden">
+    <div id="combo-controls">
+      Combo length:
+      <select id="comboLen">
+        <option value="2">2 emoji</option>
+        <option value="3" selected>3 emoji</option>
+        <option value="4">4 emoji</option>
+      </select>
+      <button class="action" onclick="generateCombos()">🎲 100 Naye Combos Banao</button>
+    </div>
+    <div id="combo-grid"></div>
+  </div>
+
+  <div id="funny100k-view" class="hidden">
+    <div id="funny100k-controls">
+      <button class="action" onclick="restartFunny100k()">🔁 Fir Se Shuru Karo</button>
+    </div>
+    <div id="funny100k-grid"></div>
+  </div>
+
+  <div id="comment-view" class="hidden">
+    <div id="comment-controls">
+      <button class="action" onclick="loadMoreComments(60)">➕ Aur 60 Comments Load Karo</button>
+      <button class="action" onclick="resetComments()">🔁 Sab Naye Comments Banao</button>
+    </div>
+    <div id="comment-feed"></div>
+  </div>
+
+  <div id="comments100k-view" class="hidden">
+    <div id="comments100k-controls">
+      <button class="action" onclick="restartComments100k()">🔁 Fir Se Shuru Karo</button>
+    </div>
+    <div id="comments100k-grid"></div>
+  </div>
+
+  <div id="name-view" class="hidden">
+    <div id="name-wrap">
+      <input id="nameInput" type="text" placeholder="Apna naam yahan likho... (e.g. Rohan)">
+      <div>
+        <button class="action" onclick="generateNameEmoji()">✨ Emoji Naam Banao</button>
+      </div>
+
+      <div class="preset-group">
+        <div class="preset-label">👦 Boy Names (click karke turant banao)</div>
+        <button class="preset-btn" onclick="quickName('Aryan')">Aryan</button>
+        <button class="preset-btn" onclick="quickName('Rohan')">Rohan</button>
+        <button class="preset-btn" onclick="quickName('Karan')">Karan</button>
+        <button class="preset-btn" onclick="quickName('Vihaan')">Vihaan</button>
+        <button class="preset-btn" onclick="quickName('Aditya')">Aditya</button>
+        <button class="preset-btn" onclick="quickName('Rahul')">Rahul</button>
+      </div>
+
+      <div class="preset-group">
+        <div class="preset-label">👧 Girl Names (click karke turant banao)</div>
+        <button class="preset-btn" onclick="quickName('Priya')">Priya</button>
+        <button class="preset-btn" onclick="quickName('Ananya')">Ananya</button>
+        <button class="preset-btn" onclick="quickName('Diya')">Diya</button>
+        <button class="preset-btn" onclick="quickName('Riya')">Riya</button>
+        <button class="preset-btn" onclick="quickName('Isha')">Isha</button>
+        <button class="preset-btn" onclick="quickName('Neha')">Neha</button>
+      </div>
+
+      <div id="name-result-card">
+        <div id="name-result-text"></div>
+        <button class="action" onclick="copyNameResult()">📋 Emoji Naam Copy Karo</button>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button class="action" onclick="generateBlockArtName()">🖼️ Bada Block Art Naam Banao</button>
+      </div>
+      <div id="block-result-card">
+        <pre id="block-result-text" class="block-art-pre"></pre>
+        <button class="action" onclick="copyBlockArt()">📋 Block Art Copy Karo</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast">Copied! ✅</div>
+
+<script>
+const emojiData = [
+["😂","laugh hasi funny lol",["funny","faces"]],["🤣","rofl laugh hasi funny",["funny","faces"]],
+["😹","cat laugh funny hasi",["funny","animals"]],["😆","laugh hasi grin",["funny","faces"]],
+["🤡","clown joker funny",["funny","faces"]],["🙃","upside down funny weird",["funny","faces"]],
+["😜","wink tongue funny",["funny","faces"]],["🤪","crazy funny weird",["funny","faces"]],
+["🥴","dizzy drunk funny",["funny","faces"]],["🫠","melting funny",["funny","faces"]],
+["🤯","mind blown shock funny",["funny","faces"]],["💀","dead funny lol skull",["funny","faces"]],
+["😵‍💫","dizzy confused funny",["funny","faces"]],["🙈","monkey funny shy",["funny","animals"]],
+["🙉","monkey funny",["funny","animals"]],["🙊","monkey funny",["funny","animals"]],
+["😝","tongue funny silly",["funny","faces"]],["🥸","disguise funny fake",["funny","faces"]],
+["🤠","cowboy funny",["funny","faces"]],["👻","ghost funny spooky",["funny"]],
+["🤖","robot funny",["funny","objects"]],["👽","alien funny",["funny"]],["💩","poop funny",["funny"]],
+["🫣","peeking funny shy",["funny","faces"]],["🫡","salute funny respect",["faces","gestures"]],
+["🥱","yawn bored funny",["funny","faces"]],["🫥","invisible funny",["funny","faces"]],
+["🫨","shaking shocked funny",["funny","faces"]],["🤭","giggle funny shy",["funny","faces"]],
+["😲","surprised shocked funny",["funny","faces"]],["🥲","smile tear funny",["funny","faces"]],
+["❤️","love heart pyaar",["love"]],["😍","love heart eyes pyaar",["love","faces"]],
+["🥰","love hug cute pyaar",["love","faces"]],["😘","kiss love pyaar",["love","faces"]],
+["💕","hearts love pyaar",["love"]],["💖","sparkle heart love pyaar",["love"]],
+["💗","heart growing love pyaar",["love"]],["💘","heart arrow love pyaar",["love"]],
+["💝","heart gift love pyaar",["love"]],["😻","cat heart eyes love",["love","animals"]],
+["💞","revolving hearts love",["love"]],["💓","beating heart love",["love"]],
+["🧡","orange heart love",["love"]],["💛","yellow heart love",["love"]],
+["💚","green heart love",["love"]],["💙","blue heart love",["love"]],
+["💜","purple heart love",["love"]],["🖤","black heart love",["love"]],
+["🤍","white heart love",["love"]],["💯","hundred points love agree",["love","symbols"]],
+["🐶","dog kutta animal",["animals"]],["🐱","cat billi animal",["animals"]],
+["🐭","mouse chuha animal",["animals"]],["🐹","hamster animal",["animals"]],
+["🐰","rabbit khargosh animal",["animals"]],["🦊","fox animal",["animals"]],
+["🐻","bear bhalu animal",["animals"]],["🐼","panda animal",["animals"]],
+["🐨","koala animal",["animals"]],["🐯","tiger sher animal",["animals"]],
+["🦁","lion sher animal",["animals"]],["🐮","cow gaay animal",["animals"]],
+["🐷","pig suar animal",["animals"]],["🐸","frog mendhak animal",["animals","funny"]],
+["🐔","chicken murgi animal",["animals"]],["🐧","penguin animal",["animals"]],
+["🦄","unicorn animal",["animals","funny"]],["🐝","bee animal",["animals"]],
+["🐢","turtle kachua animal",["animals"]],["🦋","butterfly animal",["animals","nature"]],
+["🐴","horse ghoda animal",["animals"]],["🦓","zebra animal",["animals"]],
+["🐘","elephant hathi animal",["animals"]],["🦒","giraffe animal",["animals"]],
+["🐦","bird chidiya animal",["animals"]],["🦉","owl ullu animal",["animals"]],
+["🐙","octopus animal",["animals"]],["🦈","shark animal",["animals"]],
+["🍕","pizza khana food",["food"]],["🍔","burger khana food",["food"]],
+["🍟","fries khana food",["food"]],["🌭","hotdog khana food",["food"]],
+["🌮","taco khana food",["food"]],["🍩","donut khana food sweet",["food"]],
+["🍦","icecream khana food",["food"]],["🍫","chocolate khana food sweet",["food"]],
+["🍿","popcorn khana food",["food"]],["🥤","drink khana food",["food"]],
+["☕","coffee chai drink",["food"]],["🍎","apple fruit food",["food"]],
+["🍆","brinjal funny food",["food","funny"]],["🥑","avocado food",["food"]],
+["🍇","grapes food",["food"]],["🍓","strawberry food",["food"]],
+["🍉","watermelon food",["food"]],["🥭","mango aam food",["food"]],
+["🍌","banana kela food",["food","funny"]],["🍰","cake mithai food",["food","party"]],
+["🍜","noodles maggi food",["food"]],["🍛","curry rice khana food",["food"]],
+["🥘","paella khana food",["food"]],["🍗","chicken leg food",["food"]],
+["👍","thumbs up good accha",["gestures"]],["👎","thumbs down bad bura",["gestures"]],
+["👏","clap taali good",["gestures"]],["🙏","namaste please pray",["gestures"]],
+["✌️","peace victory",["gestures"]],["🤝","handshake deal",["gestures"]],
+["🤞","fingers crossed luck",["gestures"]],["💪","strong muscle taakat",["gestures"]],
+["👌","ok theek",["gestures"]],["🤙","call me",["gestures"]],
+["🖕","middle finger rude",["gestures","funny"]],["🤦","facepalm annoyed",["gestures","funny"]],
+["🤷","shrug pata nahi",["gestures","funny"]],["👋","wave hi bye",["gestures"]],
+["🫰","finger heart",["gestures","love"]],["🤌","chef kiss italian",["gestures","funny"]],
+["👆","point up",["gestures"]],["👇","point down",["gestures"]],
+["🎉","party celebration khushi",["party"]],["🎊","confetti party celebration",["party"]],
+["🎈","balloon party",["party"]],["🎁","gift party present",["party"]],
+["🥳","party face celebration",["party","faces","funny"]],["🎂","cake birthday party",["party","food"]],
+["🍾","champagne party celebration",["party"]],["🪅","pinata party",["party"]],
+["🎆","fireworks party celebration",["party"]],["🎇","sparkler party",["party"]],
+["🎀","ribbon party gift",["party"]],["🪩","disco ball party",["party"]],
+["😀","smile khush happy",["faces"]],["😊","smile shy happy",["faces"]],
+["😎","cool sunglasses",["faces"]],["😢","cry rona sad",["faces"]],
+["😭","cry loud rona sad",["faces"]],["😡","angry gussa",["faces","funny"]],
+["😱","shock dar scared",["faces","funny"]],["😴","sleep neend tired",["faces"]],
+["🤔","think soch confused",["faces","funny"]],["😏","smirk sly",["faces","funny"]],
+["🥺","pleading cute sad",["faces"]],["😬","cringe awkward",["faces","funny"]],
+["🥹","holding tears emotional",["faces"]],["😐","neutral blank",["faces","funny"]],
+["🤒","sick fever",["faces"]],["🤧","sneeze sick",["faces"]],
+["🥶","cold freezing",["faces","funny"]],["🥵","hot sweating",["faces","funny"]],
+["😷","mask sick",["faces"]],["🤢","nauseous sick funny",["faces","funny"]],
+["🌸","flower phool nature",["nature"]],["🌹","rose phool nature love",["nature","love"]],
+["🌻","sunflower nature",["nature"]],["🌈","rainbow nature",["nature","funny"]],
+["☀️","sun dhoop nature",["nature"]],["🌙","moon chand nature",["nature"]],
+["⭐","star sitara nature",["nature"]],["🔥","fire aag lit nature",["nature","symbols","funny"]],
+["🌊","wave paani nature",["nature"]],["🌳","tree ped nature",["nature"]],
+["🍂","leaf patta nature",["nature"]],["⚡","lightning bijli nature",["nature","symbols"]],
+["❄️","snow snowflake nature",["nature"]],["🌵","cactus nature",["nature","funny"]],
+["📱","phone mobile object",["objects"]],["💻","laptop computer object",["objects"]],
+["🎮","game controller object",["objects","party"]],["📷","camera object",["objects"]],
+["🎧","headphones music object",["objects"]],["📚","books padhai object",["objects"]],
+["✏️","pencil likhna object",["objects"]],["💰","money paisa object",["objects"]],
+["🔑","key chabi object",["objects"]],["🎁","gift box object",["objects","party"]],
+["🚗","car gaadi object",["objects"]],["✈️","airplane travel object",["objects"]],
+["⏰","alarm clock object",["objects"]],["💡","bulb idea object",["objects"]],
+["✨","sparkles shiny symbol",["symbols"]],["💫","dizzy stars symbol",["symbols"]],
+["💥","boom explosion symbol",["symbols","funny"]],["💢","anger symbol",["symbols","funny"]],
+["❗","exclamation symbol",["symbols"]],["❓","question symbol",["symbols","funny"]],
+["✅","check tick symbol",["symbols"]],["❌","cross wrong symbol",["symbols"]],
+["♻️","recycle symbol",["symbols"]],["🔔","bell symbol",["symbols"]],
+["🎵","music note symbol",["symbols"]],["🔒","lock symbol",["symbols"]]
+];
+
+const funnyPool = emojiData.filter(e => e[2].includes('funny')).map(e => e[0]);
+
+let allCombosSoFar = new Set();
+
+// ---- Single emoji tab ----
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const emptyMsg = document.getElementById('empty');
+const toast = document.getElementById('toast');
+const catBtns = document.querySelectorAll('.cat-btn');
+let activeCat = 'all';
+
+function renderSingle() {
+  const q = search.value.trim().toLowerCase();
+  grid.innerHTML = '';
+  let shown = 0;
+  emojiData.forEach(([emoji, keywords, cats]) => {
+    const matchesCat = activeCat === 'all' || cats.includes(activeCat);
+    const matchesSearch = !q || keywords.toLowerCase().includes(q) || emoji === q;
+    if (matchesCat && matchesSearch) {
+      const btn = document.createElement('button');
+      btn.className = 'emoji-btn';
+      btn.textContent = emoji;
+      btn.title = 'Click to copy';
+      btn.onclick = () => copyText(emoji, btn);
+      grid.appendChild(btn);
+      shown++;
+    }
+  });
+  emptyMsg.style.display = shown === 0 ? 'block' : 'none';
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    showToast(`Copied! Ab kahin bhi paste karo 📋`);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(`Copied! Ab kahin bhi paste karo 📋`);
+  });
+  if (btn) {
+    btn.style.transform = 'scale(1.4) rotate(8deg)';
+    setTimeout(() => btn.style.transform = '', 200);
+  }
+}
+
+function showToast(msg) {
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+}
+
+search.addEventListener('input', renderSingle);
+catBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    catBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat = btn.dataset.cat;
+    renderSingle();
+  });
+});
+renderSingle();
+
+// ---- Combo mode tab ----
+const comboGrid = document.getElementById('combo-grid');
+const statsBar = document.getElementById('stats-bar');
+const comboLenSelect = document.getElementById('comboLen');
+
+function updateComboStats() {
+  const n = emojiData.length;
+  const len = parseInt(comboLenSelect.value);
+  const totalPossible = Math.pow(n, len);
+  statsBar.innerHTML = `📊 <b>${n}</b> base emojis → <b>${totalPossible.toLocaleString('en-IN')}</b> possible unique ${len}-emoji combos!`;
+}
+
+function generateCombos() {
+  const len = parseInt(comboLenSelect.value);
+  comboGrid.innerHTML = '';
+  let created = 0;
+  let attempts = 0;
+  while (created < 100 && attempts < 5000) {
+    attempts++;
+    let combo = '';
+    for (let i = 0; i < len; i++) {
+      combo += emojiData[Math.floor(Math.random() * emojiData.length)][0];
+    }
+    if (!allCombosSoFar.has(combo)) {
+      allCombosSoFar.add(combo);
+      const btn = document.createElement('button');
+      btn.className = 'emoji-btn';
+      btn.textContent = combo;
+      btn.style.fontSize = '1.3rem';
+      btn.title = 'Click to copy combo';
+      btn.onclick = () => copyText(combo, btn);
+      comboGrid.appendChild(btn);
+      created++;
+    }
+  }
+  updateComboStats();
+}
+
+comboLenSelect.addEventListener('change', () => {
+  updateComboStats();
+  generateCombos();
+});
+
+// ---- 100k Naye Funny Emoji tab ----
+const funny100kGrid = document.getElementById('funny100k-grid');
+const f100kProgress = document.getElementById('f100k-progress');
+const statsBarF100k = document.getElementById('stats-bar-f100k');
+const FUNNY_TOTAL = 100000;
+const FUNNY_CHUNK = 2000;
+let funnyGenerated = 0;
+
+function randomFunnyCombo() {
+  const len = Math.random() < 0.5 ? 2 : 3;
+  let combo = '';
+  for (let i = 0; i < len; i++) {
+    combo += funnyPool[Math.floor(Math.random() * funnyPool.length)];
+  }
+  return combo;
+}
+
+function buildFunnyChunk() {
+  const frag = document.createDocumentFragment();
+  const n = Math.min(FUNNY_CHUNK, FUNNY_TOTAL - funnyGenerated);
+  for (let i = 0; i < n; i++) {
+    const combo = randomFunnyCombo();
+    const btn = document.createElement('button');
+    btn.className = 'emoji-btn';
+    btn.style.fontSize = '1.3rem';
+    btn.textContent = combo;
+    btn.title = 'Click to copy';
+    btn.onclick = () => copyText(combo, btn);
+    frag.appendChild(btn);
+  }
+  funny100kGrid.appendChild(frag);
+  funnyGenerated += n;
+  const pct = Math.min(100, (funnyGenerated / FUNNY_TOTAL) * 100);
+  f100kProgress.style.width = pct + '%';
+  statsBarF100k.textContent = `🆕 ${funnyGenerated.toLocaleString('en-IN')} / ${FUNNY_TOTAL.toLocaleString('en-IN')} naye funny emoji combos ready hain — click karke copy karo!`;
+
+  if (funnyGenerated < FUNNY_TOTAL) {
+    setTimeout(buildFunnyChunk, 0);
+  }
+}
+
+function restartFunny100k() {
+  funny100kGrid.innerHTML = '';
+  funnyGenerated = 0;
+  buildFunnyChunk();
+}
+
+// ---- shared helpers ----
+function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function countEmojis(str) {
+  return [...str].filter(ch => ch.trim() !== '' && ch !== '\n').length;
+}
+
+// ---- Funny Emoji Comments feed (PURE emoji only, each under 1000) ----
+const MAX_COMMENT_EMOJIS = 1000;
+const commentFeed = document.getElementById('comment-feed');
+let commentCounter = 0;
+
+function genBurst() {
+  const len = 6 + Math.floor(Math.random() * 20);
+  let s = '';
+  for (let i = 0; i < len; i++) s += pick(funnyPool);
+  return s;
+}
+
+function genRepeatPattern() {
+  const patLen = 2 + Math.floor(Math.random() * 2);
+  let pattern = '';
+  for (let i = 0; i < patLen; i++) pattern += pick(funnyPool);
+  const repeats = 20 + Math.floor(Math.random() * 40);
+  return pattern.repeat(repeats);
+}
+
+function genMiniSnake() {
+  const segments = 30 + Math.floor(Math.random() * 60);
+  const perRow = 10;
+  let rows = [];
+  let indent = 0, seg = 0, currentRow = '';
+  for (let i = 0; i < segments; i++) {
+    const isLast = i === segments - 1;
+    currentRow += (i === 0 ? '🐍' : (isLast ? '🍎' : pick(['🟩','🟢'])));
+    seg++;
+    if (seg === perRow || isLast) {
+      rows.push(' '.repeat(indent) + currentRow);
+      indent = indent === 0 ? 4 : 0;
+      currentRow = '';
+      seg = 0;
+    }
+  }
+  return rows.join('\n');
+}
+
+function genMiniFace() {
+  const width = 13 + Math.floor(Math.random() * 6);
+  const height = 9 + Math.floor(Math.random() * 4);
+  const faceOpts = [
+    { face: '🟡', eye: '⚫', nose: '🟤', mouth: '🔴' },
+    { face: '🟧', eye: '⚫', nose: '⬛', mouth: '🩷' },
+    { face: '🟢', eye: '⚪', nose: '🟤', mouth: '🔴' },
+    { face: '💛', eye: '⚫', nose: '🧡', mouth: '❤️' },
+  ];
+  const opts = pick(faceOpts);
+  const cx = (width - 1) / 2, cy = (height - 1) / 2;
+  const rx = width / 2 - 0.5, ry = height / 2 - 0.5;
+  let rows = [];
+  for (let y = 0; y < height; y++) {
+    let row = '';
+    for (let x = 0; x < width; x++) {
+      const nx = (x - cx) / rx, ny = (y - cy) / ry;
+      const d = nx * nx + ny * ny;
+      let ch = ' ';
+      if (d <= 1) {
+        ch = opts.face;
+        if (Math.abs(ny + 0.22) < 0.18 && (Math.abs(nx - 0.35) < 0.18 || Math.abs(nx + 0.35) < 0.18)) ch = opts.eye;
+        else if (Math.abs(nx) < 0.14 && Math.abs(ny - 0.02) < 0.14) ch = opts.nose;
+        else if (ny > 0.32 && ny < 0.5 && Math.abs(nx) < 0.55 * (1 - Math.pow((ny - 0.32) / 0.3, 2))) ch = opts.mouth;
+      }
+      row += ch;
+    }
+    rows.push(row);
+  }
+  return rows.join('\n');
+}
+
+function genRandomEmojiOnly() {
+  const len = 5 + Math.floor(Math.random() * 15);
+  let s = '';
+  for (let i = 0; i < len; i++) s += pick(emojiData)[0];
+  return s;
+}
+
+function genHeart() {
+  const emo = pick(['❤️','💕','💖','🧡','💛','💚','💙','💜']);
+  const bg = ' ';
+  const rows = [
+    "  XX   XX  ",
+    " XXXX XXXX ",
+    "XXXXXXXXXXX",
+    "XXXXXXXXXXX",
+    "XXXXXXXXXXX",
+    " XXXXXXXXX ",
+    "  XXXXXXX  ",
+    "   XXXXX   ",
+    "    XXX    ",
+    "     X     "
+  ];
+  return rows.map(r => [...r].map(c => c === 'X' ? emo : bg).join('')).join('\n');
+}
+
+function genStarBurst() {
+  const emo = pick(['✨','⭐','💥','🌟']);
+  const size = 7;
+  let rows = [];
+  const c = Math.floor(size / 2);
+  for (let y = 0; y < size; y++) {
+    let row = '';
+    for (let x = 0; x < size; x++) {
+      const onLine = (x === c) || (y === c) || (Math.abs(x - c) === Math.abs(y - c));
+      row += onLine ? emo : ' ';
+    }
+    rows.push(row);
+  }
+  return rows.join('\n');
+}
+
+function genMirrorLine() {
+  const half = [];
+  const half_len = 3 + Math.floor(Math.random() * 5);
+  for (let i = 0; i < half_len; i++) half.push(pick(funnyPool));
+  const mid = pick(funnyPool);
+  return half.join('') + mid + half.slice().reverse().join('');
+}
+
+function genWaveLine() {
+  const set = [pick(funnyPool), pick(funnyPool), pick(funnyPool)];
+  let rows = [];
+  const lines = 5 + Math.floor(Math.random() * 5);
+  for (let i = 0; i < lines; i++) {
+    const indent = (i % 4 <= 1) ? i % 4 : 4 - (i % 4);
+    rows.push(' '.repeat(indent * 2) + set[i % set.length].repeat(3));
+  }
+  return rows.join('\n');
+}
+
+const commentGenerators = [
+  genBurst, genRepeatPattern, genMiniSnake, genMiniFace, genRandomEmojiOnly,
+  genHeart, genStarBurst, genMirrorLine, genWaveLine
+];
+
+function createCommentCard(content) {
+  commentCounter++;
+  const count = countEmojis(content);
+  const card = document.createElement('div');
+  card.className = 'comment-card';
+
+  const top = document.createElement('div');
+  top.className = 'comment-card-top';
+  const num = document.createElement('span');
+  num.className = 'comment-num';
+  num.textContent = `#${commentCounter}`;
+  const copyBtn = document.createElement('button');
+  copyBtn.className = 'comment-copy-btn';
+  copyBtn.textContent = '📋 Copy';
+  copyBtn.onclick = () => copyText(content, copyBtn);
+  top.appendChild(num);
+  top.appendChild(copyBtn);
+
+  const pre = document.createElement('pre');
+  pre.className = 'comment-body';
+  pre.textContent = content;
+
+  const countLabel = document.createElement('div');
+  countLabel.className = 'comment-count';
+  countLabel.textContent = `${count} / ${MAX_COMMENT_EMOJIS} emoji`;
+
+  card.appendChild(top);
+  card.appendChild(pre);
+  card.appendChild(countLabel);
+  return card;
+}
+
+function loadMoreComments(n) {
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < n; i++) {
+    const gen = pick(commentGenerators);
+    const content = gen();
+    frag.appendChild(createCommentCard(content));
+  }
+  commentFeed.appendChild(frag);
+}
+
+function resetComments() {
+  commentFeed.innerHTML = '';
+  commentCounter = 0;
+  loadMoreComments(60);
+}
+
+// Pre-load comments immediately on page open so switching feels instant
+loadMoreComments(30);
+
+// ---- 100k Funny Comments tab (lightweight, lazy chunked, click-to-copy) ----
+const comments100kGrid = document.getElementById('comments100k-grid');
+const c100kProgress = document.getElementById('c100k-progress');
+const statsBarC100k = document.getElementById('stats-bar-c100k');
+const COMMENTS100K_TOTAL = 100000;
+const COMMENTS100K_CHUNK = 1000;
+let comments100kGenerated = 0;
+
+function genCompactBurst() {
+  const len = 3 + Math.floor(Math.random() * 6);
+  let s = '';
+  for (let i = 0; i < len; i++) s += pick(funnyPool);
+  return s;
+}
+function genCompactRepeat() {
+  const pattern = pick(funnyPool) + pick(funnyPool);
+  const repeats = 3 + Math.floor(Math.random() * 5);
+  return pattern.repeat(repeats);
+}
+function genCompactMirror() {
+  const half = [];
+  const half_len = 2 + Math.floor(Math.random() * 3);
+  for (let i = 0; i < half_len; i++) half.push(pick(funnyPool));
+  const mid = pick(funnyPool);
+  return half.join('') + mid + half.slice().reverse().join('');
+}
+function genCompactRandom() {
+  const len = 3 + Math.floor(Math.random() * 6);
+  let s = '';
+  for (let i = 0; i < len; i++) s += pick(emojiData)[0];
+  return s;
+}
+const compactGenerators = [genCompactBurst, genCompactRepeat, genCompactMirror, genCompactRandom];
+
+function buildComments100kChunk() {
+  const frag = document.createDocumentFragment();
+  const n = Math.min(COMMENTS100K_CHUNK, COMMENTS100K_TOTAL - comments100kGenerated);
+  for (let i = 0; i < n; i++) {
+    const content = pick(compactGenerators)();
+    const btn = document.createElement('button');
+    btn.className = 'mini-comment-btn';
+    btn.textContent = content;
+    btn.title = 'Click to copy';
+    btn.onclick = () => copyText(content, btn);
+    frag.appendChild(btn);
+  }
+  comments100kGrid.appendChild(frag);
+  comments100kGenerated += n;
+  const pct = Math.min(100, (comments100kGenerated / COMMENTS100K_TOTAL) * 100);
+  c100kProgress.style.width = pct + '%';
+  statsBarC100k.textContent = `🔥 ${comments100kGenerated.toLocaleString('en-IN')} / ${COMMENTS100K_TOTAL.toLocaleString('en-IN')} funny comments ready hain — click karke copy karo!`;
+
+  if (comments100kGenerated < COMMENTS100K_TOTAL) {
+    setTimeout(buildComments100kChunk, 0);
+  }
+}
+
+function restartComments100k() {
+  comments100kGrid.innerHTML = '';
+  comments100kGenerated = 0;
+  buildComments100kChunk();
+}
+
+// ---- Naam Emoji Banao tab (name -> funny emoji alphabet) ----
+const letterEmojiMap = {
+  A: '🤪', B: '🐝', C: '🤡', D: '🦆', E: '🥚', F: '🦶', G: '👻', H: '🍔',
+  I: '🍦', J: '🃏', K: '🐨', L: '🦁', M: '🐒', N: '🥜', O: '🐙', P: '🐷',
+  Q: '👑', R: '🌈', S: '🐍', T: '🌮', U: '🦄', V: '🎻', W: '🍉', X: '❌',
+  Y: '🧶', Z: '🦓'
+};
+const digitEmojiMap = {
+  '0': '0️⃣', '1': '1️⃣', '2': '2️⃣', '3': '3️⃣', '4': '4️⃣',
+  '5': '5️⃣', '6': '6️⃣', '7': '7️⃣', '8': '8️⃣', '9': '9️⃣'
+};
+
+let lastNameEmoji = '';
+
+function nameToEmoji(name) {
+  let out = '';
+  for (const rawCh of name) {
+    const ch = rawCh.toUpperCase();
+    if (letterEmojiMap[ch]) {
+      out += letterEmojiMap[ch];
+    } else if (digitEmojiMap[ch]) {
+      out += digitEmojiMap[ch];
+    } else if (rawCh === ' ') {
+      out += '  ';
+    }
+    // other characters (symbols, non-Latin script) are skipped silently
+  }
+  return out;
+}
+
+function generateNameEmoji() {
+  const input = document.getElementById('nameInput');
+  const name = input.value.trim();
+  if (!name) {
+    showToast('Pehle naam likho! ✍️');
+    return;
+  }
+  const result = nameToEmoji(name);
+  const resultCard = document.getElementById('name-result-card');
+  const resultText = document.getElementById('name-result-text');
+  if (!result) {
+    resultText.textContent = '😕 Is naam ke liye emoji nahi ban paya (sirf A-Z letters support hain)';
+  } else {
+    resultText.textContent = result;
+  }
+  lastNameEmoji = result;
+  resultCard.style.display = 'block';
+}
+
+function quickName(name) {
+  document.getElementById('nameInput').value = name;
+  generateNameEmoji();
+}
+
+function copyNameResult() {
+  if (!lastNameEmoji) return;
+  copyText(lastNameEmoji, null);
+}
+
+// ---- Block Art Naam (big pixel-style letters, different funny emoji per letter) ----
+const blockFont = {
+  A: ["01110","10001","11111","10001","10001"],
+  B: ["11110","10001","11110","10001","11110"],
+  C: ["01111","10000","10000","10000","01111"],
+  D: ["11110","10001","10001","10001","11110"],
+  E: ["11111","10000","11110","10000","11111"],
+  F: ["11111","10000","11110","10000","10000"],
+  G: ["01111","10000","10011","10001","01111"],
+  H: ["10001","10001","11111","10001","10001"],
+  I: ["11111","00100","00100","00100","11111"],
+  J: ["00111","00010","00010","10010","01100"],
+  K: ["10001","10010","11100","10010","10001"],
+  L: ["10000","10000","10000","10000","11111"],
+  M: ["10001","11011","10101","10001","10001"],
+  N: ["10001","11001","10101","10011","10001"],
+  O: ["01110","10001","10001","10001","01110"],
+  P: ["11110","10001","11110","10000","10000"],
+  Q: ["01110","10001","10101","10010","01101"],
+  R: ["11110","10001","11110","10010","10001"],
+  S: ["01111","10000","01110","00001","11110"],
+  T: ["11111","00100","00100","00100","00100"],
+  U: ["10001","10001","10001","10001","01110"],
+  V: ["10001","10001","10001","01010","00100"],
+  W: ["10001","10001","10101","11011","10001"],
+  X: ["10001","01010","00100","01010","10001"],
+  Y: ["10001","01010","00100","00100","00100"],
+  Z: ["11111","00010","00100","01000","11111"]
+};
+
+let lastBlockArt = '';
+
+function generateBlockArtName() {
+  const input = document.getElementById('nameInput').value.trim();
+  if (!input) {
+    showToast('Pehle naam likho! ✍️');
+    return;
+  }
+
+  const chars = input.toUpperCase().split('');
+  // shuffle a copy of the funny pool so consecutive letters rarely repeat the same emoji
+  const shuffled = [...funnyPool].sort(() => Math.random() - 0.5);
+  let poolIdx = 0;
+
+  const rows = ['', '', '', '', ''];
+  chars.forEach((ch) => {
+    if (blockFont[ch]) {
+      const emo = shuffled[poolIdx % shuffled.length];
+      poolIdx++;
+      const font = blockFont[ch];
+      for (let r = 0; r < 5; r++) {
+        let rowStr = '';
+        for (const bit of font[r]) rowStr += (bit === '1' ? emo : '  ');
+        rows[r] += rowStr + '  ';
+      }
+    } else if (ch === ' ') {
+      for (let r = 0; r < 5; r++) rows[r] += '    ';
+    }
+    // unsupported characters are skipped silently
+  });
+
+  lastBlockArt = rows.join('\n');
+  const card = document.getElementById('block-result-card');
+  const text = document.getElementById('block-result-text');
+  text.textContent = lastBlockArt.trim() ? lastBlockArt : '😕 Is naam ke liye block art nahi ban paya (sirf A-Z letters support hain)';
+  card.style.display = 'block';
+}
+
+function copyBlockArt() {
+  if (!lastBlockArt) return;
+  copyText(lastBlockArt, null);
+}
+
+document.getElementById('nameInput').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') generateNameEmoji();
+});
+
+// ---- Tabs ----
+const tabBtns = document.querySelectorAll('.tab-btn');
+const singleControls = document.getElementById('single-controls');
+const comboControlsHeader = document.getElementById('combo-controls-header');
+const funny100kHeader = document.getElementById('funny100k-header');
+const commentHeader = document.getElementById('comment-header');
+const comments100kHeader = document.getElementById('comments100k-header');
+const nameHeader = document.getElementById('name-header');
+const singleView = document.getElementById('single-view');
+const comboView = document.getElementById('combo-view');
+const funny100kView = document.getElementById('funny100k-view');
+const commentView = document.getElementById('comment-view');
+const comments100kView = document.getElementById('comments100k-view');
+const nameView = document.getElementById('name-view');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    singleControls.classList.add('hidden');
+    comboControlsHeader.classList.add('hidden');
+    funny100kHeader.classList.add('hidden');
+    commentHeader.classList.add('hidden');
+    comments100kHeader.classList.add('hidden');
+    nameHeader.classList.add('hidden');
+    singleView.classList.add('hidden');
+    comboView.classList.add('hidden');
+    funny100kView.classList.add('hidden');
+    commentView.classList.add('hidden');
+    comments100kView.classList.add('hidden');
+    nameView.classList.add('hidden');
+
+    if (btn.dataset.tab === 'single') {
+      singleControls.classList.remove('hidden');
+      singleView.classList.remove('hidden');
+    } else if (btn.dataset.tab === 'combo') {
+      comboControlsHeader.classList.remove('hidden');
+      comboView.classList.remove('hidden');
+      if (comboGrid.children.length === 0) {
+        updateComboStats();
+        generateCombos();
+      }
+    } else if (btn.dataset.tab === 'funny100k') {
+      funny100kHeader.classList.remove('hidden');
+      funny100kView.classList.remove('hidden');
+      if (funny100kGrid.children.length === 0) {
+        buildFunnyChunk();
+      }
+    } else if (btn.dataset.tab === 'comment') {
+      commentHeader.classList.remove('hidden');
+      commentView.classList.remove('hidden');
+      if (commentFeed.children.length === 0) {
+        loadMoreComments(60);
+      }
+    } else if (btn.dataset.tab === 'comments100k') {
+      comments100kHeader.classList.remove('hidden');
+      comments100kView.classList.remove('hidden');
+      if (comments100kGrid.children.length === 0) {
+        buildComments100kChunk();
+      }
+    } else if (btn.dataset.tab === 'name') {
+      nameHeader.classList.remove('hidden');
+      nameView.classList.remove('hidden');
+    }
+  });
+});
+</script>
+
+</body>
+</html>
